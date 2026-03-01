@@ -1,0 +1,160 @@
+---
+title: Deployment Overview
+description: Learn about the different deployment options for the AWS Certified App
+---
+
+The AWS Certified App is a React 19 + Vite application that can be deployed in multiple ways depending on your needs. This guide covers all available deployment methods.
+
+## Deployment Options
+
+<CardGroup cols={2}>
+  <Card title="Local Development" icon="laptop-code" href="/deployment/local-development">
+    Run the app on your local machine for development or personal use
+  </Card>
+  
+  <Card title="Docker Deployment" icon="docker" href="/deployment/docker">
+    Deploy using Docker with pre-built images or custom builds
+  </Card>
+  
+  <Card title="Production Deployment" icon="server" href="/deployment/production">
+    Deploy to production environments with optimization and best practices
+  </Card>
+</CardGroup>
+
+## Quick Start
+
+Choose the method that best fits your needs:
+
+### For Testing and Development
+
+If you want to quickly test the app or contribute to development:
+
+```bash
+npm install
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`
+
+### For Quick Deployment (Docker Hub)
+
+The fastest way to get the app running:
+
+```bash
+docker pull thisisrober/aws-exam-prep-app:latest
+docker run -d -p 5173:5173 --name aws-exam-app thisisrober/aws-exam-prep-app:latest
+```
+
+### For Production
+
+Build an optimized production bundle:
+
+```bash
+npm run build
+npm run preview
+```
+
+## System Requirements
+
+<AccordionGroup>
+  <Accordion title="Node.js Requirements">
+    - **Node.js**: Version 18.x LTS or higher
+    - **npm**: Version 9.x or higher (comes with Node.js)
+    - **Operating System**: Windows 10+, macOS 10.13+, or Linux
+  </Accordion>
+  
+  <Accordion title="Docker Requirements">
+    - **Docker Engine**: Version 20.10 or higher
+    - **Docker Compose**: Version 2.0 or higher (optional)
+    - **Available Memory**: At least 512MB RAM
+    - **Disk Space**: Approximately 200MB for the image
+  </Accordion>
+  
+  <Accordion title="Browser Requirements">
+    Modern browsers are recommended for the best experience:
+    - Chrome 90+
+    - Firefox 88+
+    - Safari 14+
+    - Edge 90+
+  </Accordion>
+</AccordionGroup>
+
+## Application Architecture
+
+The AWS Certified App is built with:
+
+- **React 19**: Modern React with latest features
+- **Vite**: Lightning-fast build tool and dev server
+- **Tailwind CSS 4**: Utility-first CSS framework
+- **Lucide React**: Beautiful icon library
+
+### Available NPM Scripts
+
+The application includes the following npm scripts:
+
+| Script | Command | Description |
+|--------|---------|-------------|
+| `dev` | `vite` | Start development server with hot reload |
+| `build` | `vite build` | Build optimized production bundle |
+| `preview` | `vite preview` | Preview production build locally |
+| `lint` | `eslint .` | Run ESLint to check code quality |
+
+## Port Configuration
+
+<Info>
+By default, the application runs on **port 5173**. You can change this using Vite's command-line options or environment variables.
+</Info>
+
+To use a different port in development:
+
+```bash
+npm run dev -- --port 3000
+```
+
+For Docker deployments, map to a different host port:
+
+```bash
+docker run -p 8080:5173 thisisrober/aws-exam-prep-app:latest
+```
+
+## Base Path Configuration
+
+<Warning>
+The application is configured with a base path of `/projects/aws-certified-app/` in the Vite config. If you're deploying to the root domain, you may need to modify `vite.config.js`.
+</Warning>
+
+Current configuration in `vite.config.js`:
+
+```javascript
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  base: '/projects/aws-certified-app/',
+})
+```
+
+For root domain deployment, change to:
+
+```javascript
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  base: '/',
+})
+```
+
+## Next Steps
+
+Choose your deployment method:
+
+<Steps>
+  <Step title="Local Development">
+    Start with [local development](/deployment/local-development) for testing and contributing
+  </Step>
+  
+  <Step title="Docker Deployment">
+    Use [Docker](/deployment/docker) for containerized deployments
+  </Step>
+  
+  <Step title="Production">
+    Follow the [production guide](/deployment/production) for optimized deployments
+  </Step>
+</Steps>

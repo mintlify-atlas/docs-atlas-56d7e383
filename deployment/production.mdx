@@ -1,0 +1,697 @@
+---
+title: Production Deployment
+description: Deploy the AWS Certified App to production with optimization and best practices
+---
+
+This guide covers best practices for deploying the AWS Certified App to production environments with optimal performance, security, and reliability.
+
+## Production Build
+
+### Building for Production
+
+Create an optimized production build:
+
+<Steps>
+  <Step title="Install dependencies">
+    ```bash
+    npm ci
+    ```
+    
+    <Note>
+    Use `npm ci` (not `npm install`) for reproducible builds based on `package-lock.json`
+    </Note>
+  </Step>
+  
+  <Step title="Run production build">
+    ```bash
+    npm run build
+    ```
+    
+    Expected output:
+    ```plaintext
+    vite v7.2.4 building for production...
+    ✓ 145 modules transformed.
+    dist/index.html                  0.65 kB │ gzip:  0.38 kB
+    dist/assets/index-BfTvK0Qh.css   3.21 kB │ gzip:  1.18 kB
+    dist/assets/index-D4RqP5gj.js  156.42 kB │ gzip: 50.32 kB
+    ✓ built in 2.45s
+    ```
+  </Step>
+  
+  <Step title="Preview the build locally">
+    ```bash
+    npm run preview
+    ```
+    
+    Access at: `http://localhost:4173`
+  </Step>
+</Steps>
+
+### Build Output
+
+The `npm run build` command generates optimized files in the `dist/` directory:
+
+```plaintext
+dist/
+├── index.html              # Optimized HTML entry point
+├── assets/
+│   ├── index-[hash].css    # Minified CSS bundle
+│   ├── index-[hash].js     # Minified JS bundle
+│   └── [images]            # Optimized images
+└── [other static files]    # Public assets
+```
+
+<Info>
+Vite automatically:
+- Minifies HTML, CSS, and JavaScript
+- Generates content-hashed filenames for cache busting
+- Tree-shakes unused code
+- Optimizes images and assets
+</Info>
+
+## Static Hosting
+
+The built application is a static site that can be hosted anywhere:
+
+### Popular Hosting Options
+
+<Tabs>
+  <Tab title="Vercel">
+    Deploy to Vercel with automatic builds:
+    
+    **Install Vercel CLI:**
+    ```bash
+    npm install -g vercel
+    ```
+    
+    **Deploy:**
+    ```bash
+    vercel --prod
+    ```
+    
+    **Or connect GitHub repository:**
+    1. Go to [vercel.com](https://vercel.com)
+    2. Import your GitHub repository
+    3. Vercel auto-detects Vite configuration
+    4. Deploy automatically on every push
+    
+    <Note>
+    Remember to update the `base` path in `vite.config.js` if deploying to root domain
+    </Note>
+  </Tab>
+  
+  <Tab title="Netlify">
+    Deploy to Netlify:
+    
+    **Install Netlify CLI:**
+    ```bash
+    npm install -g netlify-cli
+    ```
+    
+    **Deploy:**
+    ```bash
+    npm run build
+    netlify deploy --prod --dir=dist
+    ```
+    
+    **Or use Netlify UI:**
+    1. Connect your Git repository at [netlify.com](https://netlify.com)
+    2. Set build command: `npm run build`
+    3. Set publish directory: `dist`
+    4. Deploy
+  </Tab>
+  
+  <Tab title="GitHub Pages">
+    Deploy to GitHub Pages:
+    
+    **Create `deploy.sh` script:**
+    ```bash deploy.sh
+    #!/usr/bin/env sh
+    set -e
+    
+    npm run build
+    cd dist
+    
+    git init
+    git add -A
+    git commit -m 'deploy'
+    git push -f git@github.com:username/repo.git main:gh-pages
+    
+    cd -
+    ```
+    
+    **Run deployment:**
+    ```bash
+    chmod +x deploy.sh
+    ./deploy.sh
+    ```
+    
+    <Warning>
+    Update `vite.config.js` with your repository name:
+    ```javascript
+    base: '/repo-name/'
+    ```
+    </Warning>
+  </Tab>
+  
+  <Tab title="AWS S3 + CloudFront">
+    Deploy to AWS:
+    
+    **1. Build the application:**
+    ```bash
+    npm run build
+    ```
+    
+    **2. Upload to S3:**
+    ```bash
+    aws s3 sync dist/ s3://your-bucket-name --delete
+    ```
+    
+    **3. Invalidate CloudFront cache:**
+    ```bash
+    aws cloudfront create-invalidation \
+      --distribution-id YOUR_DIST_ID \
+      --paths "/*"
+    ```
+    
+    <Info>
+    S3 + CloudFront provides global CDN distribution with low latency
+    </Info>
+  </Tab>
+</Tabs>
+
+## Self-Hosted Server
+
+### Using Nginx
+
+<Steps>
+  <Step title="Build the application">
+    ```bash
+    npm run build
+    ```
+  </Step>
+  
+  <Step title="Copy dist folder to server">
+    ```bash
+    scp -r dist/ user@server:/var/www/aws-exam-app
+    ```
+  </Step>
+  
+  <Step title="Configure Nginx">
+    Create `/etc/nginx/sites-available/aws-exam-app`:
+    
+    ```nginx
+    server {
+        listen 80;
+        server_name example.com;
+        
+        root /var/www/aws-exam-app;
+        index index.html;
+        
+        # Gzip compression
+        gzip on;
+        gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+        
+        # Cache static assets
+        location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
+            expires 1y;
+            add_header Cache-Control "public, immutable";
+        }
+        
+        # SPA fallback
+        location / {
+            try_files $uri $uri/ /index.html;
+        }
+    }
+    ```
+  </Step>
+  
+  <Step title="Enable and restart Nginx">
+    ```bash
+    sudo ln -s /etc/nginx/sites-available/aws-exam-app /etc/nginx/sites-enabled/
+    sudo nginx -t
+    sudo systemctl restart nginx
+    ```
+  </Step>
+</Steps>
+
+### Using serve (Simple HTTP Server)
+
+For quick deployments, use the `serve` package:
+
+```bash
+# Install serve globally
+npm install -g serve
+
+# Build and serve
+npm run build
+serve -s dist -l 5173
+```
+
+<Info>
+This is the same approach used in the Docker image
+</Info>
+
+## Docker Production Deployment
+
+Deploy using Docker with production optimizations:
+
+### Using Docker Hub Image
+
+```bash
+# Pull the official image
+docker pull thisisrober/aws-exam-prep-app:latest
+
+# Run with production settings
+docker run -d \
+  --name aws-exam-app \
+  -p 80:5173 \
+  -e NODE_ENV=production \
+  --restart unless-stopped \
+  --memory="512m" \
+  --cpus="0.5" \
+  thisisrober/aws-exam-prep-app:latest
+```
+
+### Docker Compose Production Setup
+
+```yaml docker-compose.prod.yml
+version: '3.8'
+
+services:
+  app:
+    image: thisisrober/aws-exam-prep-app:latest
+    container_name: aws-exam-app
+    ports:
+      - "80:5173"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5173', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    networks:
+      - app-network
+
+  # Optional: Add Nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - app
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+```
+
+Deploy with:
+
+```bash
+docker compose -f docker-compose.prod.yml up -d
+```
+
+## HTTPS Configuration
+
+### Using Let's Encrypt with Certbot
+
+<Steps>
+  <Step title="Install Certbot">
+    ```bash
+    sudo apt install certbot python3-certbot-nginx
+    ```
+  </Step>
+  
+  <Step title="Obtain SSL certificate">
+    ```bash
+    sudo certbot --nginx -d example.com -d www.example.com
+    ```
+  </Step>
+  
+  <Step title="Verify auto-renewal">
+    ```bash
+    sudo certbot renew --dry-run
+    ```
+  </Step>
+</Steps>
+
+<Success>
+Certbot automatically configures Nginx for HTTPS and sets up auto-renewal
+</Success>
+
+## Performance Optimization
+
+### CDN Configuration
+
+<CardGroup cols={2}>
+  <Card title="Cloudflare" icon="cloud">
+    Use Cloudflare for:
+    - Global CDN caching
+    - DDoS protection
+    - Automatic HTTPS
+    - Image optimization
+  </Card>
+  
+  <Card title="AWS CloudFront" icon="aws">
+    Configure CloudFront for:
+    - Edge caching
+    - Custom domain support
+    - Geo-restriction
+    - Real-time logs
+  </Card>
+</CardGroup>
+
+### Caching Strategy
+
+Recommended cache headers:
+
+```nginx
+# HTML files (short cache)
+location ~* \.html$ {
+    expires 1h;
+    add_header Cache-Control "public, must-revalidate";
+}
+
+# JavaScript and CSS (content-hashed)
+location ~* \.(js|css)$ {
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+}
+
+# Images and fonts
+location ~* \.(png|jpg|jpeg|gif|ico|svg|woff|woff2)$ {
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+}
+```
+
+### Compression
+
+Enable gzip/brotli compression:
+
+```nginx
+# Gzip
+gzip on;
+gzip_vary on;
+gzip_proxied any;
+gzip_comp_level 6;
+gzip_types text/plain text/css text/xml text/javascript 
+           application/json application/javascript application/xml+rss 
+           application/rss+xml font/truetype font/opentype 
+           application/vnd.ms-fontobject image/svg+xml;
+
+# Brotli (if available)
+brotli on;
+brotli_comp_level 6;
+brotli_types text/plain text/css text/xml text/javascript 
+             application/json application/javascript application/xml+rss 
+             application/rss+xml font/truetype font/opentype 
+             application/vnd.ms-fontobject image/svg+xml;
+```
+
+## Monitoring and Logging
+
+### Health Checks
+
+Implement health check endpoints:
+
+```bash
+# Docker health check
+curl http://localhost:5173
+
+# Expected: HTTP 200 with HTML content
+```
+
+### Uptime Monitoring
+
+<Tabs>
+  <Tab title="UptimeRobot">
+    Free monitoring service:
+    1. Add your domain at [uptimerobot.com](https://uptimerobot.com)
+    2. Set check interval (1-5 minutes)
+    3. Configure alerts (email, SMS, Slack)
+  </Tab>
+  
+  <Tab title="Pingdom">
+    Professional monitoring:
+    - Real-time alerts
+    - Performance insights
+    - Transaction monitoring
+  </Tab>
+  
+  <Tab title="Custom Script">
+    Simple bash script:
+    ```bash
+    #!/bin/bash
+    URL="http://example.com"
+    STATUS=$(curl -o /dev/null -s -w "%{http_code}" $URL)
+    
+    if [ $STATUS -ne 200 ]; then
+        echo "Site down! Status: $STATUS"
+        # Send alert (email, slack, etc.)
+    fi
+    ```
+  </Tab>
+</Tabs>
+
+### Access Logs
+
+Monitor Nginx access logs:
+
+```bash
+# Real-time log monitoring
+sudo tail -f /var/log/nginx/access.log
+
+# Analyze with GoAccess
+sudo goaccess /var/log/nginx/access.log --log-format=COMBINED
+```
+
+### Docker Logs
+
+```bash
+# View container logs
+docker logs aws-exam-app
+
+# Follow logs in real-time
+docker logs -f aws-exam-app
+
+# Export logs to file
+docker logs aws-exam-app > app.log 2>&1
+```
+
+## Security Best Practices
+
+<Warning>
+Always implement these security measures in production:
+</Warning>
+
+<AccordionGroup>
+  <Accordion title="HTTPS Only">
+    Force HTTPS redirects:
+    
+    ```nginx
+    server {
+        listen 80;
+        server_name example.com;
+        return 301 https://$server_name$request_uri;
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="Security Headers">
+    Add security headers:
+    
+    ```nginx
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Referrer-Policy "no-referrer-when-downgrade" always;
+    add_header Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval'" always;
+    ```
+  </Accordion>
+  
+  <Accordion title="Rate Limiting">
+    Prevent abuse with rate limiting:
+    
+    ```nginx
+    limit_req_zone $binary_remote_addr zone=mylimit:10m rate=10r/s;
+    
+    server {
+        location / {
+            limit_req zone=mylimit burst=20 nodelay;
+        }
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="Firewall Rules">
+    Configure firewall to allow only necessary ports:
+    
+    ```bash
+    # UFW (Ubuntu)
+    sudo ufw allow 80/tcp
+    sudo ufw allow 443/tcp
+    sudo ufw allow 22/tcp
+    sudo ufw enable
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Backup and Recovery
+
+### Backup Strategy
+
+<Steps>
+  <Step title="Source code">
+    Keep code in version control (Git)
+    ```bash
+    git push origin main
+    ```
+  </Step>
+  
+  <Step title="Docker images">
+    Tag and push images to registry
+    ```bash
+    docker tag aws-exam-app:latest your-registry/aws-exam-app:v1.0.0
+    docker push your-registry/aws-exam-app:v1.0.0
+    ```
+  </Step>
+  
+  <Step title="Configuration files">
+    Backup Nginx configs and SSL certificates
+    ```bash
+    tar -czf backup-$(date +%Y%m%d).tar.gz /etc/nginx /etc/letsencrypt
+    ```
+  </Step>
+</Steps>
+
+## Scaling Considerations
+
+### Horizontal Scaling
+
+For high-traffic scenarios:
+
+```yaml docker-compose.scale.yml
+services:
+  app:
+    image: thisisrober/aws-exam-prep-app:latest
+    deploy:
+      replicas: 3
+    ports:
+      - "5173"
+  
+  load-balancer:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-lb.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
+```
+
+Scale up:
+
+```bash
+docker compose up -d --scale app=5
+```
+
+## Troubleshooting Production Issues
+
+<AccordionGroup>
+  <Accordion title="Application not loading">
+    1. Check if container is running: `docker ps`
+    2. View logs: `docker logs aws-exam-app`
+    3. Verify port binding: `netstat -tulpn | grep 5173`
+    4. Check Nginx config: `sudo nginx -t`
+  </Accordion>
+  
+  <Accordion title="SSL certificate errors">
+    ```bash
+    # Verify certificate
+    sudo certbot certificates
+    
+    # Renew if needed
+    sudo certbot renew
+    
+    # Test HTTPS
+    curl -I https://example.com
+    ```
+  </Accordion>
+  
+  <Accordion title="High memory usage">
+    Limit container resources:
+    ```bash
+    docker update --memory="256m" aws-exam-app
+    ```
+  </Accordion>
+  
+  <Accordion title="Slow response times">
+    1. Enable caching headers
+    2. Use CDN
+    3. Enable compression
+    4. Check network latency
+    5. Scale horizontally if needed
+  </Accordion>
+</AccordionGroup>
+
+## Deployment Checklist
+
+<Steps>
+  <Step title="Pre-deployment">
+    - [ ] Run production build locally
+    - [ ] Test build with `npm run preview`
+    - [ ] Update version numbers
+    - [ ] Review and commit changes
+    - [ ] Update `vite.config.js` base path if needed
+  </Step>
+  
+  <Step title="Deployment">
+    - [ ] Build production assets
+    - [ ] Upload to server/container registry
+    - [ ] Configure environment variables
+    - [ ] Set up HTTPS/SSL
+    - [ ] Configure security headers
+    - [ ] Enable monitoring
+  </Step>
+  
+  <Step title="Post-deployment">
+    - [ ] Verify application loads correctly
+    - [ ] Test all major features
+    - [ ] Check health endpoints
+    - [ ] Monitor logs for errors
+    - [ ] Set up automated backups
+    - [ ] Configure uptime monitoring
+  </Step>
+</Steps>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Local Development" icon="laptop-code" href="/deployment/local-development">
+    Set up local development environment
+  </Card>
+  
+  <Card title="Docker Deployment" icon="docker" href="/deployment/docker">
+    Learn about containerized deployments
+  </Card>
+</CardGroup>

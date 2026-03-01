@@ -1,0 +1,314 @@
+---
+title: Local Development
+description: Set up the AWS Certified App for local development
+---
+
+This guide walks you through setting up the AWS Certified App on your local machine for development or personal use.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+<CardGroup cols={2}>
+  <Card title="Node.js 18+" icon="node-js">
+    Download from [nodejs.org](https://nodejs.org/)
+  </Card>
+  
+  <Card title="npm 9+" icon="npm">
+    Included with Node.js installation
+  </Card>
+</CardGroup>
+
+### Verify Installation
+
+Check that Node.js and npm are installed correctly:
+
+```bash
+node --version
+# Should output: v18.x.x or higher
+
+npm --version
+# Should output: 9.x.x or higher
+```
+
+<Note>
+If the commands above don't work, you need to install Node.js from [nodejs.org](https://nodejs.org/). Download the LTS (Long Term Support) version.
+</Note>
+
+## Installation
+
+### Step 1: Clone the Repository
+
+<CodeGroup>
+
+```bash HTTPS
+git clone https://github.com/thisisrober/aws-certified-app.git
+cd aws-certified-app
+```
+
+```bash SSH
+git clone git@github.com:thisisrober/aws-certified-app.git
+cd aws-certified-app
+```
+
+```bash GitHub CLI
+gh repo clone thisisrober/aws-certified-app
+cd aws-certified-app
+```
+
+</CodeGroup>
+
+<Accordion title="Don't have Git installed?">
+You can download the project as a ZIP file:
+
+1. Visit the [GitHub repository](https://github.com/thisisrober/aws-certified-app)
+2. Click the green **Code** button
+3. Select **Download ZIP**
+4. Extract the ZIP file to your preferred location
+5. Open a terminal in the extracted folder
+</Accordion>
+
+### Step 2: Install Dependencies
+
+Install all required npm packages:
+
+```bash
+npm install
+```
+
+<Info>
+This process typically takes 2-5 minutes depending on your internet connection. The command installs all dependencies listed in `package.json`.
+</Info>
+
+Expected output:
+
+```plaintext
+added 200+ packages, and audited 201 packages in 2m
+
+50 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+```
+
+### Step 3: Start Development Server
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+You should see output similar to:
+
+```plaintext
+  VITE v7.2.4  ready in 500 ms
+
+  ➜  Local:   http://localhost:5173/projects/aws-certified-app/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+```
+
+<Success>
+The application is now running! Open your browser and navigate to:
+
+**http://localhost:5173/projects/aws-certified-app/**
+</Success>
+
+## Development Workflow
+
+### Available Commands
+
+Here are the main npm scripts you'll use during development:
+
+<CodeGroup>
+
+```bash Development Server
+# Start development server with hot reload
+npm run dev
+
+# Start on a different port
+npm run dev -- --port 3000
+
+# Expose to network (accessible from other devices)
+npm run dev -- --host
+```
+
+```bash Code Quality
+# Run ESLint to check code quality
+npm run lint
+
+# Fix auto-fixable linting issues
+npm run lint -- --fix
+```
+
+```bash Build & Preview
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+</CodeGroup>
+
+### Hot Module Replacement (HMR)
+
+<Info>
+Vite provides instant hot module replacement. When you save a file, changes appear immediately in the browser without a full page reload.
+</Info>
+
+The development server automatically:
+- Reloads when you save files
+- Preserves component state when possible
+- Shows compilation errors in the browser
+
+### Project Structure
+
+Key directories and files:
+
+```plaintext
+aws-certified-app/
+├── src/
+│   ├── components/          # React components
+│   │   ├── Header.jsx       # Top navigation bar
+│   │   ├── Menu.jsx         # Main menu screen
+│   │   ├── QuestionPanel.jsx # Question display
+│   │   ├── Sidebar.jsx      # Question navigation
+│   │   ├── Result.jsx       # Results screen
+│   │   ├── ConceptMap.jsx   # Study concept map
+│   │   └── Footer.jsx       # Footer component
+│   ├── data/
+│   │   └── questions.js     # Exam questions database
+│   ├── utils/
+│   │   └── helpers.js       # Utility functions
+│   ├── App.jsx              # Main application component
+│   ├── main.jsx             # Application entry point
+│   └── index.css            # Global styles
+├── public/                  # Static assets
+├── index.html               # HTML template
+├── vite.config.js           # Vite configuration
+├── tailwind.config.js       # Tailwind CSS config
+└── package.json             # Project dependencies
+```
+
+## Configuration
+
+### Vite Configuration
+
+The `vite.config.js` file contains:
+
+```javascript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  base: '/projects/aws-certified-app/',
+})
+```
+
+<Warning>
+The `base` option is set to `/projects/aws-certified-app/`. If you're hosting at the root domain, change this to `'/'`.
+</Warning>
+
+### Environment Variables
+
+Vite supports environment variables through `.env` files:
+
+```bash .env.local
+# Example environment variables
+VITE_API_URL=http://localhost:3000
+VITE_APP_TITLE=AWS Certified App
+```
+
+<Note>
+Environment variables must be prefixed with `VITE_` to be exposed to the client-side code.
+</Note>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Port 5173 already in use">
+    If port 5173 is already occupied, use a different port:
+    
+    ```bash
+    npm run dev -- --port 3000
+    ```
+    
+    Or set it in `vite.config.js`:
+    
+    ```javascript
+    export default defineConfig({
+      server: {
+        port: 3000
+      }
+    })
+    ```
+  </Accordion>
+  
+  <Accordion title="Module not found errors">
+    This usually means dependencies weren't installed correctly:
+    
+    ```bash
+    # Clear npm cache and reinstall
+    rm -rf node_modules package-lock.json
+    npm cache clean --force
+    npm install
+    ```
+  </Accordion>
+  
+  <Accordion title="npm install takes too long">
+    The initial installation can take 2-5 minutes. If it's taking longer:
+    
+    1. Check your internet connection
+    2. Try a different npm registry:
+    
+    ```bash
+    npm install --registry=https://registry.npmjs.org/
+    ```
+    
+    3. If behind a proxy, configure npm:
+    
+    ```bash
+    npm config set proxy http://proxy-server:port
+    npm config set https-proxy http://proxy-server:port
+    ```
+  </Accordion>
+  
+  <Accordion title="Changes not reflecting in browser">
+    Vite has automatic hot reload, but if changes don't appear:
+    
+    1. Check the terminal for compilation errors
+    2. Hard reload the browser (Ctrl+Shift+R or Cmd+Shift+R)
+    3. Restart the dev server:
+    
+    ```bash
+    # Stop the server (Ctrl+C)
+    # Start it again
+    npm run dev
+    ```
+  </Accordion>
+  
+  <Accordion title="Blank page or styling issues">
+    This might be a cache issue:
+    
+    1. Clear browser cache (Ctrl+Shift+Delete)
+    2. Hard reload (Ctrl+F5 or Cmd+Shift+R)
+    3. Try in an incognito/private window
+    4. Check the browser console (F12) for errors
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Build for Production" icon="box" href="/deployment/production">
+    Learn how to create optimized production builds
+  </Card>
+  
+  <Card title="Docker Deployment" icon="docker" href="/deployment/docker">
+    Deploy using Docker containers
+  </Card>
+</CardGroup>

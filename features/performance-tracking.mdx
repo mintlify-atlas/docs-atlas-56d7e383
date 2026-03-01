@@ -1,0 +1,317 @@
+---
+title: 'Performance Tracking'
+description: 'Monitor your progress and identify areas for improvement'
+icon: 'chart-line'
+---
+
+## Overview
+
+The application automatically tracks your performance across all tests, helping you identify strengths, weaknesses, and areas that need more study. Your scores persist across sessions using browser local storage.
+
+<Info>
+  Performance tracking is completely automatic - you don't need to create an account or manually save anything.
+</Info>
+
+## Domain Score Tracking
+
+Each time you complete a domain test, your score is automatically saved and displayed on the home screen.
+
+### Domain Card Indicators
+
+On the home screen, each domain card shows:
+
+<CardGroup cols={2}>
+  <Card title="Circular Progress" icon="circle">
+    A circular progress indicator appears in the top-right corner of each domain card showing:
+    - Your most recent score as a percentage
+    - Color-coded ring:
+      - **Green** (80%+): Strong performance
+      - **Red** (&lt;80%): Needs improvement
+  </Card>
+  
+  <Card title="Score History" icon="clock">
+    The app tracks your most recent attempt for each domain:
+    - Only the latest score is displayed
+    - Scores persist across browser sessions
+    - Stored locally on your device
+  </Card>
+</CardGroup>
+
+### Visual Performance Indicators
+
+<Tabs>
+  <Tab title="Green Circle (80%+)">
+    **Strong Performance**
+    
+    You're ready for this domain on the real exam. This score indicates:
+    - Solid understanding of domain concepts
+    - Meets AWS recommended preparation threshold
+    - You can focus study efforts elsewhere
+    
+    <Tip>
+      Maintain this level across all domains before scheduling your certification exam.
+    </Tip>
+  </Tab>
+  
+  <Tab title="Red Circle (<80%)">
+    **Needs Review**
+    
+    This domain requires more study. Consider:
+    - Reviewing the concept map for this domain
+    - Retaking the domain test for more practice
+    - Focusing on question explanations to understand concepts
+    - Using the notes feature to capture learning points
+    
+    <Warning>
+      AWS recommends scoring at least 80% consistently before taking the real certification exam.
+    </Warning>
+  </Tab>
+</Tabs>
+
+## Full Exam Performance Breakdown
+
+After completing a full exam simulation, you receive a comprehensive performance analysis.
+
+### Overall Score Display
+
+<Steps>
+  <Step title="AWS-Scaled Score">
+    Your score is displayed on the 100-1000 scale used by AWS:
+    - **700**: Minimum passing score
+    - **800+**: Strong performance
+    - **Below 700**: Not passing - requires more preparation
+  </Step>
+  
+  <Step title="Pass/Fail Status">
+    Clear visual indicator:
+    - **Green trophy icon**: Passed (700+)
+    - **Red trophy icon**: Not passed (&lt;700)
+    - Large text displaying "Certification Passed!" or "Not Passed"
+  </Step>
+  
+  <Step title="Score Context">
+    The results screen shows both:
+    - Your achieved score
+    - The passing threshold (700)
+    - These appear side-by-side for easy comparison
+  </Step>
+</Steps>
+
+### Domain-by-Domain Analysis
+
+The performance breakdown shows detailed results for each domain:
+
+<Tabs>
+  <Tab title="Score Display">
+    For each domain, you'll see:
+    - **Domain name and number**
+    - **Exam weight percentage** (24%, 30%, 34%, or 12%)
+    - **Your percentage score** in that domain
+    - **Visual progress bar** with color coding
+    - **Performance status** with icon and label
+  </Tab>
+  
+  <Tab title="Color Coding">
+    Domains are color-coded based on performance:
+    
+    **Green (80%+)**: Strong performance
+    - Green background tint
+    - Green progress bar
+    - Trending up icon
+    - "Strong performance" label
+    
+    **Yellow (60-79%)**: Average
+    - Yellow background tint
+    - Yellow progress bar
+    - Alert icon
+    - "Average - room to improve" label
+    
+    **Red (&lt;60%)**: Priority for review
+    - Red background tint
+    - Red progress bar
+    - Trending down icon
+    - "Priority for review" label
+    - Warning indicator (⚠️)
+  </Tab>
+  
+  <Tab title="Sorted by Weakness">
+    Domains are automatically sorted from weakest to strongest, helping you:
+    - Quickly identify problem areas
+    - Prioritize your study efforts
+    - See which domains need the most work
+  </Tab>
+</Tabs>
+
+### Personalized Recommendations
+
+Based on your performance, the app provides:
+
+1. **Focus areas**: The two weakest domains are highlighted with specific scores
+2. **Study suggestions**: Recommendations to review flashcards and practice questions
+3. **Next steps**: Guidance to retake the full exam to track improvements
+
+<Note>
+  Recommendations appear in an orange-highlighted box at the bottom of the performance breakdown.
+</Note>
+
+## Last Exam Summary Card
+
+After completing your first full exam, a "Last Exam Summary" card appears on the home screen:
+
+### What's Displayed
+
+- **Overall score** (100-1000 scale)
+- **All four domain scores** with percentages
+- **Visual progress bars** for each domain
+- **Color-coded indicators** (green for 80%+, red for below 80%)
+
+### Card Features
+
+<CardGroup cols={2}>
+  <Card title="Quick Reference" icon="eye">
+    See your most recent full exam performance without navigating away from the home screen
+  </Card>
+  
+  <Card title="Progress Monitoring" icon="chart-bar">
+    Compare domain scores after each exam to track improvement over time
+  </Card>
+</CardGroup>
+
+<Tip>
+  Use this card to quickly decide which domain test to take next - focus on the domains with the lowest scores.
+</Tip>
+
+## Performance Indicators During Tests
+
+While taking tests, you can see real-time performance indicators:
+
+### Question Grid Status
+
+**During Domain Tests**:
+- **Green boxes**: Questions you answered correctly
+- **Red boxes**: Questions you answered incorrectly
+- **Gray boxes**: Unanswered questions
+
+**During Full Exam**:
+- **Filled boxes**: Questions you've answered
+- **Empty boxes**: Unanswered questions
+- **Orange boxes**: Flagged questions
+- **Blue dots**: Questions with notes
+
+<Note>
+  The question grid appears at the bottom of the sidebar in both test modes.
+</Note>
+
+## Tracking Study Progress
+
+Use performance tracking to guide your study plan:
+
+<Steps>
+  <Step title="Establish Baseline">
+    Take all four domain tests to identify your starting point in each area.
+  </Step>
+  
+  <Step title="Focus on Weak Areas">
+    Concentrate study efforts on domains where you scored below 80%.
+  </Step>
+  
+  <Step title="Take Full Exam">
+    After improving domain scores, take a full exam simulation to test combined knowledge.
+  </Step>
+  
+  <Step title="Review Performance">
+    Analyze the full exam breakdown to identify remaining weak spots.
+  </Step>
+  
+  <Step title="Iterate">
+    Retake domain tests and full exams until you consistently score 80%+ across all domains.
+  </Step>
+</Steps>
+
+## Understanding AWS Scoring
+
+The application uses AWS's scaled scoring system for full exams:
+
+### Scaled Score (100-1000)
+
+- AWS certification exams report scores on a scale of 100 to 1000
+- **700** is the minimum passing score
+- The scale is NOT a direct percentage:
+  - Raw scores are converted using AWS's scaling algorithm
+  - This accounts for question difficulty and exam variations
+
+### What Your Score Means
+
+<Tabs>
+  <Tab title="700-750">
+    **Just Passing**
+    
+    You've met the minimum requirement but could benefit from more practice. Consider:
+    - Retaking domain tests in weak areas
+    - Taking more full exam simulations
+    - Reviewing explanations for missed questions
+  </Tab>
+  
+  <Tab title="750-850">
+    **Solid Performance**
+    
+    You have a good understanding of AWS concepts. To excel:
+    - Review any domains below 80%
+    - Take 1-2 more full exams to ensure consistency
+    - Focus on question explanations to deepen understanding
+  </Tab>
+  
+  <Tab title="850-1000">
+    **Excellent Performance**
+    
+    You're well-prepared for the certification exam. You demonstrate:
+    - Strong understanding across all domains
+    - Consistent high performance
+    - Readiness for exam scheduling
+  </Tab>
+</Tabs>
+
+## Dark Mode Support
+
+All performance tracking visualizations adapt to your theme preference:
+
+- Progress bars maintain visibility in dark mode
+- Color-coded indicators remain clear in both themes
+- Performance cards adjust background colors
+- Text contrast is optimized for readability
+
+Toggle between light and dark mode using the sun/moon icon in the main menu.
+
+## Data Persistence
+
+Your performance data is stored locally:
+
+<CardGroup cols={2}>
+  <Card title="Browser Storage" icon="hard-drive">
+    All scores are saved in your browser's local storage:
+    - No account required
+    - No data sent to servers
+    - Persists across sessions
+  </Card>
+  
+  <Card title="Privacy" icon="lock">
+    Your data stays on your device:
+    - Not shared or tracked
+    - Clearing browser data will reset scores
+    - No cloud sync between devices
+  </Card>
+</CardGroup>
+
+<Warning>
+  If you clear your browser data or use incognito mode, your performance history will be lost.
+</Warning>
+
+## Best Practices
+
+1. **Track trends**: Take each domain test multiple times to see improvement
+2. **Set goals**: Aim for 80%+ in all domains before the real exam
+3. **Use data to guide study**: Focus time on red-marked domains
+4. **Retake full exams**: Take multiple full exams to ensure consistent scores
+5. **Don't ignore high scores**: Even green domains can be reviewed to maintain knowledge
+6. **Check explanations**: Review explanations for ALL questions, even ones you got right
+7. **Monitor weak domains**: Keep retaking domain tests until they turn green

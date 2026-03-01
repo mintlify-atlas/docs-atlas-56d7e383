@@ -1,80 +1,398 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: Quickstart
+description: Get started with AWS Certified App and take your first practice test
 ---
 
-## Get started in three steps
+## Get started in minutes
 
-Get your documentation site running locally and make your first customization.
+This guide will walk you through setting up AWS Certified App and taking your first practice test. Whether you're installing locally or using Docker, you'll be practicing for your AWS Cloud Practitioner exam in no time.
 
-### Step 1: Set up your local environment
+## Prerequisites
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
+Before you begin, ensure you have the following installed:
+
+<CardGroup cols={2}>
+  <Card title="Node.js" icon="node-js">
+    Version 18.x LTS or higher ([download here](https://nodejs.org/))
+  </Card>
+  <Card title="npm" icon="npm">
+    Version 9.x or higher (included with Node.js)
+  </Card>
+  <Card title="Web browser" icon="browser">
+    Chrome 90+, Firefox 88+, Safari 14+, or Edge 90+
+  </Card>
+  <Card title="Terminal" icon="terminal">
+    Command line access on Windows, macOS, or Linux
+  </Card>
+</CardGroup>
+
+<Tip>
+  To check if Node.js and npm are installed, run `node --version` and `npm --version` in your terminal.
+</Tip>
+
+## Installation
+
+Choose your preferred installation method:
+
+<Tabs>
+  <Tab title="Local installation">
     
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
+### Clone the repository
+
+First, clone the AWS Certified App repository to your local machine:
+
+```bash
+git clone https://github.com/thisisrober/aws-cloud-practitioner-test-app.git
+cd aws-cloud-practitioner-test-app
+```
+
+### Install dependencies
+
+Install all required packages using npm:
+
+```bash
+npm install
+```
+
+<Note>
+  The installation process typically takes 2-5 minutes depending on your internet connection.
+</Note>
+
+### Start the development server
+
+Launch the application in development mode:
+
+```bash
+npm run dev
+```
+
+You should see output similar to:
+
+```
+VITE v5.0.0  ready in 500 ms
+
+➜  Local:   http://localhost:5173/
+➜  Press h to show help
+```
+
+### Open in your browser
+
+Navigate to **http://localhost:5173/** in your web browser to access the application.
+
+  </Tab>
+  <Tab title="Docker Hub">
     
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+### Pull the Docker image
 
-### Step 2: Deploy your changes
+The fastest way to get started is using the pre-built Docker image:
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
+```bash
+docker pull thisisrober/aws-exam-prep-app:latest
+```
+
+### Run the container
+
+Start the application container:
+
+```bash
+docker run -d -p 5173:5173 --name aws-exam-app thisisrober/aws-exam-prep-app:latest
+```
+
+### Access the application
+
+Open **http://localhost:5173/** in your web browser.
+
+<Info>
+  No need to clone the repository or install dependencies - the Docker image is ready to use!
+</Info>
+
+  </Tab>
+  <Tab title="Download ZIP">
     
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+### Download the project
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+1. Visit the [GitHub repository](https://github.com/thisisrober/aws-certified-app)
+2. Click **Code** → **Download ZIP**
+3. Extract the downloaded folder to your desired location
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+### Open terminal
 
-### Step 3: Go live
+Navigate to the extracted folder in your terminal:
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+```bash
+cd path/to/aws-cloud-practitioner-test-app
+```
+
+### Install and run
+
+Install dependencies and start the server:
+
+```bash
+npm install
+npm run dev
+```
+
+Then open **http://localhost:5173/** in your browser.
+
+  </Tab>
+</Tabs>
+
+## Your first practice test
+
+Once the application is running, follow these steps to take your first practice test:
+
+<Steps>
+  <Step title="Choose your practice mode">
+    On the main menu, you'll see two options:
+    
+    - **Domain Mastery Tests**: Practice specific domains with 30 questions each
+    - **Full Exam Simulation**: Take a complete 65-question exam
+    
+    <Tip>
+      Start with Domain 1 (Cloud Concepts) to get familiar with the interface and question format.
+    </Tip>
+  </Step>
+  
+  <Step title="Start the test">
+    Click on any domain card or the "Start full exam simulation" button. The test interface will load with:
+    
+    - **Left panel**: Question text and answer options
+    - **Right panel**: Navigation grid, controls, and progress tracking
+    - **Top bar**: Timer and finish button
+  </Step>
+  
+  <Step title="Answer questions">
+    For each question:
+    
+    1. Read the question carefully
+    2. Select your answer(s) by clicking checkboxes
+    3. Use the **Flag** button to mark questions for review
+    4. Add personal notes using the **Notes** button
+    5. Click **Continue** to submit and move to the next question
+    
+    <Note>
+      In domain tests, you'll see immediate feedback. In full exam mode, no feedback is shown until you finish.
+    </Note>
+  </Step>
+  
+  <Step title="Navigate through questions">
+    Use the navigation tools in the right sidebar:
+    
+    - **Question grid**: Click any number to jump to that question
+    - **Previous/Next buttons**: Move sequentially through questions
+    - **Progress indicator**: See how many questions you've completed
+    
+    Color-coded indicators show question status:
+    - 🟡 Yellow: Flagged
+    - 🟢 Green: Correct (after submission)
+    - 🔴 Red: Incorrect (after submission)
+    - ⚪ White: Unanswered
+  </Step>
+  
+  <Step title="Review and finish">
+    For full exam simulations:
+    
+    1. Click **Finish Test** in the top bar
+    2. Review the question list showing answered/unanswered questions
+    3. Click on any question to return and modify your answer
+    4. When ready, confirm to submit the exam
+    
+    <Warning>
+      Make sure to review all questions before submitting - you cannot change answers after submission.
+    </Warning>
+  </Step>
+  
+  <Step title="View your results">
+    After finishing:
+    
+    - See your overall score and percentage
+    - Review domain-by-domain performance breakdown
+    - Check which questions you got right or wrong
+    - Read detailed explanations for each question
+    
+    Your performance data is saved and displayed on the main menu for future reference.
+  </Step>
+</Steps>
+
+## Understanding the interface
+
+### Main menu tabs
+
+The application has three main tabs:
+
+<CardGroup cols={3}>
+  <Card title="Practice tests" icon="trophy">
+    Access domain tests and full exam simulations
+  </Card>
+  <Card title="Concept map" icon="map">
+    View an interactive map of all AWS topics
+  </Card>
+  <Card title="About" icon="info">
+    Learn how to use the app and get study tips
+  </Card>
+</CardGroup>
+
+### Question panel features
+
+While taking a test, you have access to:
+
+- **Flag button** (🏁): Mark important questions for review
+- **Notes button** (📝): Add personal notes to any question
+- **Answer options**: Click checkboxes to select (multiple selections allowed)
+- **Continue button**: Submit your answer and proceed
+
+<Info>
+  Questions marked with notes show a blue dot in the navigation grid.
+</Info>
+
+### Sidebar controls
+
+The right sidebar displays:
+
+- **Timer**: Counts down from 90 minutes (full exam only)
+- **Question grid**: Visual navigation of all questions
+- **Progress stats**: Questions answered and remaining
+- **Domain indicator**: Shows which domain the current question belongs to
+
+### Dark mode
+
+Toggle between light and dark themes using the moon/sun icon in the top navigation.
+
+## Study mode vs exam mode
+
+Understand the differences between practice modes:
+
+| Feature | Domain Tests (Study Mode) | Full Exam (Exam Mode) |
+|---------|---------------------------|------------------------|
+| Questions | 30 per domain | 65 total |
+| Time limit | No time limit | 90 minutes |
+| Feedback | Immediate after each question | After completion only |
+| Navigation | Can review anytime | Can navigate but no feedback |
+| Purpose | Learn and understand | Simulate real exam |
+
+<Tip>
+  Use domain tests to learn the material, then practice with full exams to test your readiness.
+</Tip>
+
+## Performance tracking
+
+Your test results are automatically saved:
+
+- **Domain scores**: Latest score for each domain test displayed on domain cards
+- **Circular indicators**: Green for ≥80%, red for &lt;80%
+- **Last exam summary**: Full exam performance shown on the main menu
+- **Persistent data**: Scores saved in browser localStorage
+
+<Note>
+  Clearing your browser data will reset your performance history.
+</Note>
+
+## Tips for success
+
+Maximize your preparation with these strategies:
+
+### 1. Start with domain tests
+
+Begin by taking individual domain tests to:
+- Understand question formats
+- Identify weak areas
+- Learn from immediate feedback
+- Build confidence gradually
+
+### 2. Focus on weak domains
+
+Check your performance indicators:
+- Target domains scoring below 80%
+- Review explanations carefully
+- Retake domain tests until consistently above 80%
+
+### 3. Practice with full exams
+
+Once comfortable with individual domains:
+- Take multiple full exam simulations
+- Practice time management (90 minutes)
+- Experience realistic exam pressure
+- Aim for consistent 80%+ scores
+
+### 4. Use all features
+
+- **Flag questions**: Mark difficult questions during practice
+- **Add notes**: Document tricky concepts for later review
+- **Review explanations**: Understand *why* answers are correct
+- **Check concept map**: See relationships between topics
+
+<Warning>
+  AWS recommends consistently scoring at least 80% on practice exams before taking the actual certification test.
+</Warning>
+
+## Troubleshooting
+
+Common issues and solutions:
+
+### "npm: command not found"
+
+**Solution**: Node.js is not installed. Download it from [nodejs.org](https://nodejs.org/) and follow the installation instructions.
+
+### Port 5173 already in use
+
+**Solution**: Use a different port:
+
+```bash
+npm run dev -- --port 3000
+```
+
+Then access the app at `http://localhost:3000/`.
+
+### Installation takes too long
+
+**Solution**: If `npm install` hangs, try:
+
+```bash
+npm cache clean --force
+npm install
+```
+
+### Changes don't reflect after editing code
+
+**Solution**: The development server has automatic hot reload. If it doesn't work:
+1. Save the file (Ctrl+S or Cmd+S)
+2. Wait 1-2 seconds
+3. Refresh the browser (F5)
+
+### Application looks broken
+
+**Solution**: 
+1. Clear browser cache (Ctrl+Shift+Del)
+2. Reload the page (Ctrl+F5 or Cmd+Shift+R)
+3. If issue persists, report it on [GitHub Issues](https://github.com/thisisrober/aws-certified-app/issues)
 
 ## Next steps
 
-Now that you have your docs running, explore these key features:
+Now that you're set up, here's what to do next:
 
 <CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
+  <Card title="Take domain test" icon="book-open">
+    Start with Domain 1 to learn the basics of cloud concepts
+  </Card>
+  <Card title="View concept map" icon="map">
+    Explore the interactive map to understand exam structure
+  </Card>
+  <Card title="Read AWS docs" icon="aws">
+    Supplement practice with [official AWS documentation](https://docs.aws.amazon.com/)
+  </Card>
+  <Card title="Take full exam" icon="trophy">
+    After mastering domains, try a complete 65-question simulation
+  </Card>
 </CardGroup>
 
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>
+## Need help?
+
+If you encounter issues or have questions:
+
+- **GitHub Issues**: [Report bugs or request features](https://github.com/thisisrober/aws-certified-app/issues)
+- **Creator**: [thisisrober.es](https://thisisrober.es)
+- **LinkedIn**: [@thisisrober](https://www.linkedin.com/in/thisisrober/)
+
+<Info>
+  This project is open source under the MIT license. Contributions and feedback are welcome!
+</Info>

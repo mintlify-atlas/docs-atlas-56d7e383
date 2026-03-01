@@ -1,0 +1,366 @@
+---
+title: Exam Interface
+description: Navigate the exam interface and use all available features effectively
+---
+
+The AWS Certified App provides a clean, distraction-free interface designed to help you focus on answering questions accurately.
+
+## Interface Layout
+
+The exam interface uses a two-panel layout:
+
+**Left Panel (Question Area)**
+- Question number and total count
+- Question text
+- Flag and notes buttons
+
+**Right Panel (Answer Area)**
+- Answer options with elimination feature
+- Navigation controls
+- Question grid overview
+- Performance breakdown (after finishing)
+
+<Info>
+On mobile devices, these panels stack vertically for better readability.
+</Info>
+
+## Top Navigation Bar
+
+The header displays key information and controls:
+
+### Left Side
+- **X button:** Exit the test (prompts confirmation if test is in progress)
+- **Test name:** Shows which domain or "Certification Exam" for full tests
+
+### Right Side
+- **Theme toggle:** Switch between light and dark mode
+- **Timer:** Shows remaining time in MM:SS format (orange clock icon)
+- **Finish button:** Submit your exam (green, shows only during active tests)
+
+<Tip>
+The timer turns red when you have less than 10 minutes remaining.
+</Tip>
+
+## Question Panel Features
+
+### Question Number Badge
+
+A small gray badge shows your progress:
+```
+Question 15 of 65
+```
+
+### Action Buttons
+
+Two buttons appear in the top-right of the question panel:
+
+#### Flag for Review
+
+<Steps>
+  <Step title="Click the flag icon">
+    Marks the question for later review. The flag turns orange when active.
+  </Step>
+  
+  <Step title="View in question grid">
+    Flagged questions appear with an orange background in the grid at the bottom.
+  </Step>
+  
+  <Step title="Unflag if needed">
+    Click the flag again to remove the mark.
+  </Step>
+</Steps>
+
+<Tip>
+Use flags for questions you're unsure about so you can quickly find them later during review.
+</Tip>
+
+#### Add Notes
+
+<Steps>
+  <Step title="Click the bookmark icon">
+    Opens a text area below the question.
+  </Step>
+  
+  <Step title="Type your notes">
+    Write reminders, reasoning, or anything helpful for review.
+  </Step>
+  
+  <Step title="Click again to close">
+    Notes are auto-saved. A blue dot appears on the question grid for questions with notes.
+  </Step>
+</Steps>
+
+<Info>
+Notes are personal and don't affect your score. They're useful for tracking your thought process or concepts you want to research later.
+</Info>
+
+## Answer Selection Panel
+
+### Answer Options
+
+Each option displays:
+- **Letter badge (A-D):** Color-coded based on state
+- **Answer text:** The full option content
+- **× button:** Eliminate/reactivate this option
+
+### Option States
+
+**Unselected (default)**
+- White background with gray border
+- Gray letter badge
+- Clickable
+
+**Selected**
+- Orange background with orange border
+- Orange letter badge (white text)
+- Glowing ring effect
+- Click again to deselect
+
+**Eliminated**
+- Gray background
+- Strikethrough text
+- Grayed out letter badge
+- Cannot be selected until reactivated
+
+**Correct (study mode only)**
+- Green background with green border
+- Shows after submitting in domain tests
+
+**Incorrect (study mode only)**
+- Red background with red border  
+- Shows after submitting in domain tests if you selected it
+
+<Warning>
+In exam mode (full simulation), correct/incorrect colors are not shown until after you finish the entire exam.
+</Warning>
+
+### Eliminating Options
+
+**To eliminate an answer:**
+1. Click the "×" button next to the option
+2. The text becomes crossed out and grayed
+3. The option cannot be selected
+
+**To reactivate:**
+1. Click the "×" button again
+2. The option returns to normal state
+3. You can now select it if needed
+
+<Tip>
+Elimination doesn't affect scoring—it's just a visual aid to help you focus on the most likely correct answers.
+</Tip>
+
+### Continue Button (Domain Tests Only)
+
+In study mode, a large orange **Continue** button appears below the answer options.
+
+**Button states:**
+- **Enabled:** You've selected at least one answer that differs from your previous selection
+- **Disabled (grayed out):** You haven't changed your selection or selected too many options
+
+<Info>
+The Continue button only appears in domain tests. In exam mode, use the Previous/Next buttons to navigate.
+</Info>
+
+## Feedback Display (Study Mode Only)
+
+After clicking Continue in a domain test, immediate feedback appears:
+
+### Correct Answer
+
+- Green box with checkmark
+- "Correct!" message
+- Shows the correct answer letters and text
+- Explanation of why the answer is correct
+
+### Incorrect Answer
+
+- Red box with X
+- "Incorrect" message  
+- Shows the correct answer letters and text
+- Detailed explanation to help you learn
+
+<Tip>
+Read the explanations carefully—they often contain key concepts that appear in other questions.
+</Tip>
+
+## Navigation Controls
+
+The navigation section appears at the bottom of the right panel.
+
+### Previous and Next Buttons
+
+**Domain Tests (Study Mode)**
+- Previous: Jump to previous unanswered question
+- Next: Jump to next unanswered question
+- Buttons are disabled if no unanswered questions in that direction
+- Cannot revisit answered questions
+
+**Full Exam (Exam Mode)**
+- Previous: Go to the previous question (any question)
+- Next: Go to the next question (any question)
+- Automatically saves your current answer when moving
+- Can revisit any question at any time
+
+<Info>
+In exam mode, navigating away from a question auto-saves your selected answer.
+</Info>
+
+### Question Grid
+
+A numbered grid shows all questions in the test:
+
+**Grid layout:**
+- 10 questions per row on desktop
+- 5 questions per row on mobile
+- Click any number to jump to that question
+
+**Color coding:**
+
+*In Domain Tests (Study Mode):*
+- White/gray = unanswered
+- Green = answered correctly
+- Red = answered incorrectly
+- Orange = flagged for review
+- Blue dot in corner = has notes
+
+*In Exam Mode (Full Simulation):*
+- White/gray = unanswered
+- Darker gray = answered
+- Orange = flagged for review  
+- Blue dot in corner = has notes
+- No green/red until after finishing
+
+**Current question:**
+- Orange ring around the number
+
+<Tip>
+Use the grid for a quick visual overview of which questions you've answered and which ones need attention.
+</Tip>
+
+## Review Screen (Exam Mode Only)
+
+When you click Finish in a full exam simulation, a review screen replaces the question panel.
+
+### Review Question List
+
+All questions display in a scrollable list:
+
+**Answered questions:**
+- Green background
+- Green left border
+- "✓ Answered" label
+- Click to jump to that question
+
+**Unanswered questions:**
+- Red background
+- Red left border
+- "✗ Not answered" label  
+- Click to jump to that question
+
+<Warning>
+Unanswered questions are marked incorrect. Make sure to answer all 65 questions before confirming.
+</Warning>
+
+### Review Panel Controls
+
+The right panel shows:
+- Blue information box explaining the review process
+- Checkbox: "I have reviewed all answers"
+- Two buttons:
+  - **Cancel:** Return to the exam
+  - **Confirm Finish:** Submit exam (only enabled after checking the box)
+
+<Steps>
+  <Step title="Review the question list">
+    Scroll through to identify unanswered questions (red background).
+  </Step>
+  
+  <Step title="Click unanswered questions">
+    Jump to each one and provide an answer.
+  </Step>
+  
+  <Step title="Check all answers">
+    Use the question grid to navigate and verify your selections.
+  </Step>
+  
+  <Step title="Acknowledge and confirm">
+    Check the box, then click Confirm Finish.
+  </Step>
+</Steps>
+
+## Results Screen
+
+After finishing a test, the interface transforms to show your results.
+
+### Score Display
+
+The center shows:
+- Large trophy icon (green if passed, red if not passed)
+- "Certification Passed!" or "Not Passed" heading
+- Your score (100-1000 scale)
+- Minimum passing score (700)
+
+### Domain Performance Breakdown
+
+For full exams, the right panel displays:
+- Performance percentage for each domain
+- Progress bars (green if ≥70%, red if below)
+- AWS recommendation reminder (aim for 80%+)
+
+### Action Buttons
+
+Two buttons at the bottom:
+- **Back to Home:** Return to main menu
+- **Retry Test:** Take another test of the same type
+
+<Tip>
+Take a screenshot of your results for personal tracking before clicking Back to Home.
+</Tip>
+
+## Dark Mode
+
+Toggle between light and dark themes using the sun/moon icon in the top-right.
+
+**Light mode:**
+- White backgrounds
+- Black text
+- Better for well-lit environments
+
+**Dark mode:**
+- Dark slate backgrounds
+- Light text  
+- Reduces eye strain in low-light conditions
+
+<Info>
+Your theme preference is saved automatically and persists across sessions.
+</Info>
+
+## Security Features
+
+During active tests, the app enforces exam integrity:
+
+**Disabled actions:**
+- Screenshots (PrintScreen, Cmd+Shift+S)
+- Text copying (Ctrl+C, right-click copy)
+- Right-click context menu
+
+**What happens:**
+- Alert message appears
+- Action is blocked
+- Test continues normally
+
+<Warning>
+These restrictions are removed after you finish the test. They exist to simulate real exam conditions.
+</Warning>
+
+## Accessibility Features
+
+- **Keyboard navigation:** Use Tab to move between elements, Enter/Space to select
+- **High contrast:** Dark mode provides better contrast for visual accessibility
+- **Clear labels:** All buttons have descriptive titles on hover
+- **Responsive design:** Works on desktop, tablet, and mobile devices
+
+<Tip>
+For the best experience, use a desktop or laptop computer with a screen size of at least 13 inches.
+</Tip>
