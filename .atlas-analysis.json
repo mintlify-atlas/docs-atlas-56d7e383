@@ -1,0 +1,85 @@
+{
+  "projectType": "saas",
+  "projectName": "AWS Certified App",
+  "projectDescription": "Interactive AWS Cloud Practitioner exam simulator with domain-specific tests, full exam simulations, and performance analytics.",
+  "theme": "almond",
+  "primaryColor": "#f97316",
+  "lightColor": "#fb923c",
+  "darkColor": "#ea580c",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "features/domain-tests",
+              "features/full-exam",
+              "features/performance-tracking",
+              "features/study-tools"
+            ]
+          },
+          {
+            "group": "User Guide",
+            "pages": [
+              "guide/taking-tests",
+              "guide/exam-interface",
+              "guide/study-tips",
+              "guide/concept-map"
+            ]
+          },
+          {
+            "group": "Exam Information",
+            "pages": [
+              "exam/domains",
+              "exam/format",
+              "exam/scoring"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Deployment",
+        "groups": [
+          {
+            "group": "Self-Hosting",
+            "pages": [
+              "deployment/overview",
+              "deployment/local-development",
+              "deployment/docker",
+              "deployment/production"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Domain-specific practice tests with 30 questions each",
+    "Full 90-minute exam simulation with 65 questions",
+    "Real-time performance tracking and analytics by domain",
+    "Interactive concept map for exam topics",
+    "Question flagging and note-taking capabilities",
+    "Immediate feedback in study mode",
+    "Dark mode support",
+    "Realistic exam conditions and timing"
+  ],
+  "publicApiSurface": [
+    "Domain 1: Cloud Concepts (24% weight, 30 questions)",
+    "Domain 2: Security and Compliance (30% weight, 30 questions)",
+    "Domain 3: Cloud Technology and Services (34% weight, 30 questions)",
+    "Domain 4: Billing, Pricing, and Support (12% weight, 30 questions)",
+    "Full Exam Simulation (65 questions, 90 minutes)",
+    "Performance Summary (domain-level score breakdown)",
+    "Concept Map (interactive study resource)",
+    "Local Storage API (persists user progress and performance data)"
+  ]
+}
